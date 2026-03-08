@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.mickleak.testcontainerspostgreflyway.application.CreateEntityUseCase;
 import org.mickleak.testcontainerspostgreflyway.domain.Entity;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class CreateEntityController {
     @PreAuthorize("hasAuthority('entity_edit')")
     @Operation(summary = "To create a new entity", description = "Creates new entity")
     @ApiResponse(responseCode = "200", description = "Entity created", content = @Content(schema = @Schema(implementation = CreateEntityResponse.class)))
-    public ResponseEntity<CreateEntityResponse> createEntity(@RequestBody CreateEntityRequest request) {
+    public ResponseEntity<CreateEntityResponse> createEntity(@RequestBody @Valid CreateEntityRequest request) {
         Entity createdEntity = createEntityUseCase.execute(request.getName());
         return ResponseEntity.ok(new CreateEntityResponse(createdEntity));
     }
