@@ -1,0 +1,54 @@
+buildscript {
+    dependencies {
+        classpath 'org.postgresql:postgresql:42.7.3'
+        classpath 'org.flywaydb:flyway-database-postgresql:10.11.0'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.6'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id "org.flywaydb.flyway" version "10.12.0"
+}
+
+group = 'org.mickleak'
+version = '0.0.1-SNAPSHOT'
+description = 'test-containers-postgre-flyway'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+
+flyway {
+    locations = ['filesystem:src/main/resources/db/migrate']
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    compileOnly 'io.swagger.core.v3:swagger-annotations:2.2.25'
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.5.6'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
