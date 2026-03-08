@@ -47,6 +47,15 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.5.6'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testImplementation 'org.springframework.security:spring-security-test'
+    
+    // Testcontainers dependencies
+    testImplementation 'org.testcontainers:testcontainers:1.20.6'
+    testImplementation 'org.testcontainers:junit-jupiter:1.20.6'
+    testImplementation 'org.testcontainers:postgresql:1.20.6'
+    
+    // Flyway dependency for test
+    testImplementation 'org.flywaydb:flyway-core:10.12.0'
+    testImplementation 'org.flywaydb:flyway-database-postgresql:10.12.0'
 }
 
 tasks.named('test') {
